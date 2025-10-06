@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2>Upload Photos to Find the Best Pose</h2>
+    <p>Upload at least 5 photos of an individual. The system will analyze them to select the one with the most frontal and clear facial pose for registration.</p>
+    <form method="post" action="/upload_best_pose" enctype="multipart/form-data">
+      <label for="photos" class="custom-file-upload">
+        Click to Select Photos
+      </label>
+      <input type="file" id="photos" name="photos" multiple required accept="image/*" onchange="updateFileCount()">
+      <p id="file-count"></p>
+      <input type="submit" value="Upload and Detect Best Pose">
+    </form>
+
+    <script>
+      function updateFileCount() {
+        const fileInput = document.getElementById('photos');
+        const fileCount = document.getElementById('file-count');
+        const numFiles = fileInput.files.length;
+        if (numFiles > 0) {
+          fileCount.textContent = `${numFiles} file(s) selected`;
+        } else {
+          fileCount.textContent = '';
+        }
+      }
+    </script>
+{% endblock %}

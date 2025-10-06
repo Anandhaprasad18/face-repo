@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Best Pose Result{% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <h2>Analysis Complete</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="result-card">
+        <h3>Best Pose Detected</h3>
+        <p>This image has been selected as it has the most frontal and clear facial pose.</p>
+        <img src="{{ url_for('uploaded_file', filename=best_image) }}" 
+             alt="Best Pose" width="400">
+        <h4>Pose Quality Score: {{ score }}</h4>
+        <p>(A higher score indicates a better pose)</p>
+        <a href="{{ url_for('uploaded_file', filename=best_image) }}" download>Download Best Pose</a>
+    </div>
+    
+    <br><br>
+    <a href="{{ url_for('home') }}">Try Again with More Photos</a>
+    {% endblock %}
+</body>
+</html>
+
